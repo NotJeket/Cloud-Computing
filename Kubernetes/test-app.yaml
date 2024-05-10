@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hmm-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hmm-app
+  template:
+    metadata:
+      labels:
+        app: hmm-app
+    spec:
+      containers:
+      - name: hmm-app
+        image: nginx
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hmm-app
+spec:
+  selector:
+    app: hmm-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
